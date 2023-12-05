@@ -120,23 +120,4 @@ class AuthController extends Controller
     {
         Auth::guard('web')->logout();
     }
-
-    public function test()
-    {
-        $data = [
-            'name' => 'poco',
-            'type' => 'electronical',
-            'owner_id' => 45,
-            'price' => 100,
-            'quantity' => 9,
-            'description' => 'this phone good',
-            'thumbnail' => ['jarji', 'abua', 'okay']
-        ];
-        return response()->json(['data' => $data])->withCookie(cookie('XSRF-TOKEN', csrf_token(), config('session.lifetime')));
-
-
-        Product::create($data);
-
-        return response()->json(['data' => $data])->withCookie(cookie('XSRF-TOKEN', csrf_token(), config('session.lifetime')));
-    }
 }
