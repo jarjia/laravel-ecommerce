@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -26,9 +27,21 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/logout', 'logout')->name('logout.user');
     });
 
+    Route::group(['controller' => CartController::class], function () {
+        Route::post('/cart', 'create')->name('create.cart.item');
+        Route::get('/cart', 'index')->name('get.cart.items');
+        Route::delete('/cart/{cart}', 'destroy')->name('destroy.cart.item');
+        Route::post('/cart/clear', 'destroyAll')->name('destroy.cart.items');
+        Route::put('/cart/quantity/{cart}', 'changeQuantity')->name('change.quantity.cart.items');
+    });
+
     Route::group(['controller' => ProductController::class], function () {
-        Route::post('/test', 'test')->name('test');
+        Route::post('/product', 'create')->name('product.create');
         Route::get('/products', 'index')->name('get.products');
+        Route::get('/products/user', 'indexUser')->name('get.user.products');
+        Route::get('/products/{productId}', 'show')->name('get.product');
+        Route::patch('/products/{productId}', 'update')->name('edit.product');
+        Route::delete('/products/{productId}', 'destroy')->name('destroy.product');
     });
 });
 

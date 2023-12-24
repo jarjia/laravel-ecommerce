@@ -20,11 +20,10 @@ class ProductsResource extends JsonResource
             } else {
                 $product['isInStock'] = true;
             }
-            $productImage = asset('storage/' . $product->mainImage);
-            $product['mainImage'] = $productImage;
             $product['thumbnails'] = collect(json_decode($product['thumbnails']))->map(function ($img) {
                 return asset('storage/' . $img);
             });
+            $product['mainImage'] = json_decode($product['thumbnails'])[0];
 
             return $product;
         })->toArray();
