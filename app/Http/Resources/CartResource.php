@@ -19,8 +19,12 @@ class CartResource extends JsonResource
             $cart['product_name'] = $cart['product']['name'];
             $cart['product_price'] = $cart['product']['price'];
             $cart['product_quantity'] = $cart['product']['quantity'];
+            $cart['product_desc'] = $cart['product']['description'];
+            $cart['product_type'] = $cart['product']['type'];
 
             unset($cart['product']);
+            unset($cart['seller']);
+            unset($cart['client']);
 
             return $cart;
         })->toArray();

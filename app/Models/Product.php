@@ -32,8 +32,12 @@ class Product extends Model
         return $query->where('name', 'LIKE', '%' . $search . '%');
     }
 
-    public static function filters($search, $sort, $isProfile)
+    public static function filters($search, $sort, $isProfile, $paginate)
     {
+        $productPerPage = 12;
+
+        $paginate = intval($paginate);
+
         $search = trim($search);
 
         $products = self::search($search)->select('price', 'name', 'id', 'quantity', 'thumbnails');
@@ -41,6 +45,8 @@ class Product extends Model
         if($isProfile) {
             $products->where('owner_id', auth()->user()->id);
         }
+
+        $count = count($products->get());
 
         if ($sort) {
             if (str_replace(' ', '_', strtolower($sort)) === 'old_to_new') {
@@ -52,8 +58,16 @@ class Product extends Model
             } elseif (str_replace(' ', '_', strtolower($sort)) === 'price_higher_to_lower') {
                 $products->latest('price');
             }
+        } else {
+            $products->latest();
         }
 
-        return $products->get();
+        $filteredProducts = $products->offset($paginate * $productPerPage - $productPerPage)
+            ->limit($productPerPage)->get();
+
+        return [
+            'products' => $filteredProducts,
+            'count' => ceil($count / $productPerPage),
+        ];
     }
 }

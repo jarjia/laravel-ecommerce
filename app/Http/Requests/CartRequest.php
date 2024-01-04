@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FilterRequest extends FormRequest
+class CartRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,9 +14,7 @@ class FilterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search' => 'nullable|string',
-            'sort' => 'nullable|string',
-            'pageParam' => 'nullable'
+            'is_checkout' => 'required'
         ];
     }
 }

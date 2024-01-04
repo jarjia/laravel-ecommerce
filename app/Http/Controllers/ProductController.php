@@ -37,28 +37,26 @@ class ProductController extends Controller
     {
         $attrs = $request->validated();
 
-        $products = Product::filters($attrs['search'], isset($attrs['sort']) ? $attrs['sort'] : null, false);
+        $products = Product::filters($attrs['search'], $attrs['sort'] ?? null, false, $attrs['pageParam'] ?? null);
 
-        $transformedProducts = new ProductsResource($products);
+        $transformedProducts = new ProductsResource($products['products']);
 
-        return response()->json($transformedProducts, 201);
+        return response()->json(['products' => $transformedProducts, 'all_pages' => $products['count'],], 201);
     }
 
     public function indexUser(FilterRequest $request): JsonResponse
     {
         $attrs = $request->validated();
 
-        $products = Product::filters($attrs['search'], isset($attrs['sort']) ? $attrs['sort'] : null, true);
+        $products = Product::filters($attrs['search'], $attrs['sort'] ?? null, true, $attrs['pageParam'] ?? null);
 
-        $transformedProducts = new ProductsResource($products);
+        $transformedProducts = new ProductsResource($products['products']);
 
-        return response()->json($transformedProducts, 201);
+        return response()->json(['products' => $transformedProducts, 'all_pages' => $products['count'],], 201);
     }
 
     public function show(Product $productId): JsonResponse
     {
-        $this->authorize('accessProduct', $productId);
-
         $transformedProducts = new ProductResource($productId);
 
         return response()->json($transformedProducts, 200);
@@ -66,10 +64,12 @@ class ProductController extends Controller
 
     public function update(Product $productId, ProductEditRequest $request): JsonResponse
     {
+        $this->authorize('accessProduct', $productId);
+
         $attrs = $request->validated();
         $imgs = [];
-
-        $this->authorize('accessProduct', $productId);
+        $o = [];
+        $imenaImgs = [];
 
         if(request()->file('files')) {
             foreach(request()->file('files') as $index => $img) {
@@ -81,12 +81,21 @@ class ProductController extends Controller
         if(isset($attrs['images'])) {
             foreach($attrs['images'] as $img) {
                 $cutImage = explode('storage/', $img['image'])[1];
+                array_push($imenaImgs, $cutImage);
+            }
+
+            foreach($attrs['images'] as $img) {
+                $cutImage = explode('storage/', $img['image'])[1];
                 foreach(json_decode($productId['thumbnails']) as $oldImg) {
-                    if(!in_array($cutImage, json_decode($productId['thumbnails']))) {
+                    if(!in_array($oldImg, $imenaImgs)) {
                         Storage::disk('public')->delete($oldImg);
                     }
                 }
                 array_splice($imgs, intval($img['order']), 0, $cutImage);
+            }
+        } else {
+            foreach(json_decode($productId['thumbnails']) as $oldImg) {
+                Storage::disk('public')->delete($oldImg);
             }
         }
 
@@ -97,7 +106,7 @@ class ProductController extends Controller
 
         $productId->update($attrs);
 
-        return response()->json('order', 200);
+        return response()->json($o, 200);
     }
 
     public function destroy(Product $productId): JsonResponse
