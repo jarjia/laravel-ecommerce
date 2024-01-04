@@ -14,7 +14,7 @@ class ProductEditRequest extends FormRequest
     public function rules(): array
     {
         return [
-                'name' => 'required|max:24',
+                'name' => 'required|max:64',
                 'type' => 'required|max:24',
                 'price' => 'numeric|required|max:100000|min:0',
                 'quantity' => 'numeric|required|max:100|min:1',

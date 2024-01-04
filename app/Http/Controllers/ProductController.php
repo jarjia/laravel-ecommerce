@@ -41,7 +41,7 @@ class ProductController extends Controller
 
         $transformedProducts = new ProductsResource($products['products']);
 
-        return response()->json(['products' => $transformedProducts, 'all_pages' => $products['count'],], 201);
+        return response()->json(['products' => $transformedProducts, 'all_pages' => $products['count'],], 200);
     }
 
     public function indexUser(FilterRequest $request): JsonResponse
@@ -52,7 +52,7 @@ class ProductController extends Controller
 
         $transformedProducts = new ProductsResource($products['products']);
 
-        return response()->json(['products' => $transformedProducts, 'all_pages' => $products['count'],], 201);
+        return response()->json(['products' => $transformedProducts, 'all_pages' => $products['count'],], 200);
     }
 
     public function show(Product $productId): JsonResponse
