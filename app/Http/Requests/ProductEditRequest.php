@@ -16,7 +16,7 @@ class ProductEditRequest extends FormRequest
         return [
                 'name' => 'required|max:64',
                 'type' => 'required|max:24',
-                'price' => 'numeric|required|max:100000|min:0',
+                'price' => 'numeric|required|max:100000000|min:0',
                 'quantity' => 'numeric|required|max:100|min:1',
                 'images' => 'array|nullable',
                 'description' => 'required|max:1500',
