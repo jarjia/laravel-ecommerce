@@ -37,7 +37,7 @@ class ProductController extends Controller
     {
         $attrs = $request->validated();
 
-        $products = Product::filters($attrs['search'], $attrs['sort'] ?? null, false, $attrs['pageParam'] ?? null);
+        $products = Product::filters($attrs['search'] ?? '', $attrs['sort'] ?? null, false, $attrs['pageParam'] ?? null);
 
         $transformedProducts = new ProductsResource($products['products']);
 
@@ -48,7 +48,7 @@ class ProductController extends Controller
     {
         $attrs = $request->validated();
 
-        $products = Product::filters($attrs['search'], $attrs['sort'] ?? null, true, $attrs['pageParam'] ?? null);
+        $products = Product::filters($attrs['search'] ?? '', $attrs['sort'] ?? null, true, $attrs['pageParam'] ?? null);
 
         $transformedProducts = new ProductsResource($products['products']);
 
