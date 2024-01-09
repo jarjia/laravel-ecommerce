@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CountriesController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['controller' => CountriesController::class], function () {
     Route::get('/countries', 'index')->name('countries.index');
+});
+
+Route::group(['controller' => MailController::class], function () {
+    Route::post('/send', 'send')->name('send.mail');
 });
 
 Route::group(['controller' => AuthController::class], function () {
