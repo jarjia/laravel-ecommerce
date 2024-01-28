@@ -15,6 +15,7 @@ class VerifyCsrfToken extends Middleware
         '/api/register',
         '/api/send-verify',
         '/api/verify',
-        '/api/send'
+        '/api/send',
+        '/api/video/*'
     ];
 }

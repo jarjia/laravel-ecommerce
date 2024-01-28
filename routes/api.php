@@ -7,6 +7,7 @@ use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\VideoChatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,14 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::group(['controller' => VideoChatController::class], function () {
+    Route::get('/video/video-chat', 'getSession')->name('get.video.session');
+    Route::post('/video/video-chat', 'create')->name('start.video.session');
+    Route::post('/video/video-offer', 'offer')->name('start.video.offer');
+    Route::post('/video/video-answer', 'answer')->name('start.video.answer');
+    Route::post('/video/video-answer-session', 'createAnswer')->name('create.video.answer');
+});
 
 Route::group(['controller' => CountriesController::class], function () {
     Route::get('/countries', 'index')->name('countries.index');
