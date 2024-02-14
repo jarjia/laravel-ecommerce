@@ -26,7 +26,7 @@ class VideoChatController extends Controller
 
         event(new VideoChatEvent(['offerCandidates' => $attrs['candidates']]));
 
-        Redis::set("offerCandidates:{$attrs['random']}", json_encode($attrs['candidates']));
+        Redis::set("offerCandidates:{$attrs['random']}", json_encode($attrs['candidates']), 'EX', 86400);
 
         return response()->json(json_decode(Redis::get("offerCandidates:{$attrs['random']}")));
     }
@@ -40,7 +40,7 @@ class VideoChatController extends Controller
 
         event(new VideoChatEvent(['offer' => $attrs['offer']]));
 
-        Redis::set("offer:{$attrs['random']}", json_encode($attrs['offer']));
+        Redis::set("offer:{$attrs['random']}", json_encode($attrs['offer']), 'EX', 86400);
 
         return response()->json(json_decode(Redis::get("offer:{$attrs['random']}")));
     }
@@ -53,7 +53,7 @@ class VideoChatController extends Controller
         ]);
         event(new VideoChatEvent(['answerCandidates' => $attrs['candidates']]));
 
-        Redis::set("answerCandidates:{$attrs['random']}", json_encode($attrs['candidates']));
+        Redis::set("answerCandidates:{$attrs['random']}", json_encode($attrs['candidates']), 'EX', 86400);
 
         return response()->json(json_decode(Redis::get("answerCandidates:{$attrs['random']}")));
     }
@@ -67,7 +67,7 @@ class VideoChatController extends Controller
 
         event(new VideoChatEvent(['answer' => $attrs['answer']]));
 
-        Redis::set("answer:{$attrs['random']}", json_encode($attrs['answer']));
+        Redis::set("answer:{$attrs['random']}", json_encode($attrs['answer']), 'EX', 86400);
 
         return response()->json(json_decode(Redis::get("answer:{$attrs['random']}")));
     }
