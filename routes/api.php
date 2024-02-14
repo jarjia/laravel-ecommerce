@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['controller' => VideoChatController::class], function () {
     Route::get('/video/video-chat', 'getSession')->name('get.video.session');
-    Route::post('/video/video-chat', 'create')->name('start.video.session');
+    Route::post('/video/video-chat', 'createVideoSession')->name('start.video.session');
     Route::post('/video/video-offer', 'offer')->name('start.video.offer');
     Route::post('/video/video-answer', 'answer')->name('start.video.answer');
     Route::post('/video/video-answer-session', 'createAnswer')->name('create.video.answer');
