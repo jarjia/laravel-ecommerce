@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ScrapeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+})->name('home');
+
+Route::controller(ScrapeController::class)->group(function () {
+    Route::get('/table/{group}', 'dashboard')->name('table');
 });
