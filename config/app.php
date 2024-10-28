@@ -7,6 +7,8 @@ return [
 
     'front_url' => env('FRONT_URL'),
 
+    'gtu_url' => env('GTU_URL'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name

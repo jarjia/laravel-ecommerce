@@ -13,7 +13,7 @@ class ScrapeController extends Controller
 {
     public function dashboard(string $group)
     {
-        $url = 'http://leqtori.gtu.ge:9000/public/groups_2024_2025_1_1n.html';
+        $url = config('app.gtu_url');
         $client = new HttpClient();
         $httpclient = $client->create()->request('GET', $url);
 
