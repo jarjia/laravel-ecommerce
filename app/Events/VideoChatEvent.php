@@ -36,6 +36,6 @@ class VideoChatEvent implements ShouldBroadcast
 
     public function broadcastAs()
     {
-        return 'video-chat';
+        return 'video.chat';
     }
 }
