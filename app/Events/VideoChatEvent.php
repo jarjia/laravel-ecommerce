@@ -27,10 +27,13 @@ class VideoChatEvent implements ShouldBroadcast
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn(): array
+    public function broadcastOn()
     {
-        return [
-            new Channel('video-chat'),
-        ];
+        return ['video-chat'];
+    }
+  
+    public function broadcastAs()
+    {
+        return 'video-chat';
     }
 }
