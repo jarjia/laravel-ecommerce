@@ -10,7 +10,9 @@ use Illuminate\Queue\SerializesModels;
 
 class VideoChatEvent implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public $message;
 
@@ -29,9 +31,9 @@ class VideoChatEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['video-chat'];
+        return new Channel('video-chat');
     }
-  
+
     public function broadcastAs()
     {
         return 'video-chat';
