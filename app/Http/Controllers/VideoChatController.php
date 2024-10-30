@@ -29,7 +29,6 @@ class VideoChatController extends Controller
         ]);
 
         event(new VideoChatEvent(['offerCandidates' => $attrs['candidates']]));
-        // event(new StreamEvent(['stream_id' => $attrs['random']]));
 
         Redis::set("offerCandidates:{$attrs['random']}", json_encode($attrs['candidates']), 'EX', $this->expire);
 

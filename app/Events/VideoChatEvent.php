@@ -33,9 +33,4 @@ class VideoChatEvent implements ShouldBroadcast
     {
         return new Channel('video-chat');
     }
-
-    public function broadcastAs()
-    {
-        return 'video.chat';
-    }
 }
