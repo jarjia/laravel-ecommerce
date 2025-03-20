@@ -9,6 +9,8 @@ return [
 
     'gtu_url' => env('GTU_URL'),
 
+    'dashboard_url' => env('DASHBOARD_URL', 'https://leqtori.gtu.ge'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
