@@ -53,7 +53,7 @@ class ScrapeController extends Controller
 
     public function test()
     {
-        $client = Client::createChromeClient(null, [
+        $client = Client::createChromeClient("/usr/bin/chromedriver", [
             'chrome' => [
                 'executable_path' => '/usr/bin/chromedriver',
             ],
