@@ -20,4 +20,5 @@ Route::get('/', function () {
 
 Route::controller(ScrapeController::class)->group(function () {
     Route::get('/table/{group}', 'dashboard')->name('table');
+    Route::get('/test', 'test')->name('test');
 });

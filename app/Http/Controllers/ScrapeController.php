@@ -49,4 +49,23 @@ class ScrapeController extends Controller
             'html' => $html,
         ]);
     }
+
+    public function test()
+    {
+        $client = Clientt::createChromeClient();
+
+        $crawler = $client->request('GET', 'https://www.rs.ge/CargoVehicleSearch');
+
+        $crawler->filter('#ContainerNumber')->click();
+
+        $crawler->filter('#InputNumberTxt')->sendKeys('UETU6598720');
+
+        $crawler->filter('#searchBtn')->click();
+
+        $client->waitFor('#myModal');
+
+        dd($client->getCrawler());
+
+        return $results;
+    }
 }
