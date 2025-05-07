@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpClient\HttpClient;
 use Illuminate\Support\Str;
+use Symfony\Component\Panther\Client;
 
 class ScrapeController extends Controller
 {
@@ -52,7 +53,7 @@ class ScrapeController extends Controller
 
     public function test()
     {
-        $client = Clientt::createChromeClient();
+        $client = Client::createChromeClient();
 
         $crawler = $client->request('GET', 'https://www.rs.ge/CargoVehicleSearch');
 
